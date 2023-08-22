@@ -1,37 +1,35 @@
-import { useEffect, Fragment } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
-import { handleInitialData } from "../actions/shared";
-import Dashboard from "./Dashboard";
-import LoadingBar from "react-redux-loading-bar";
-import NewTweet from "./NewTweet";
-import TweetPage from "./TweetPage";
-import Nav from "./Nav";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import { receiveInitialData } from "../actions/initialData";
+import Navbar from "./global/Navbar";
+import PrivateWrapper from "./wrapper/PrivateWrapper";
+import Error404 from "../pages/Error404";
+import Home from "../pages/Home";
+import Leaderboard from "../pages/Leaderboard";
+import Login from "../pages/Login";
+import NewPoll from "../pages/NewPoll";
+import Poll from "../pages/Poll";
 
-const App = (props) => {
+const App = ({ dispatch }) => {
   useEffect(() => {
-    props.dispatch(handleInitialData());
-  }, []);
-
+    dispatch(receiveInitialData())
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <Fragment>
-      <LoadingBar />
-      <div className="container">
-        <Nav />
-        {props.loading === true ? null : (
-          <Routes>
-            <Route path="/" exact element={<Dashboard />} />
-            <Route path="/tweet/:id" element={<TweetPage />} />
-            <Route path="/new" element={<NewTweet />} />
-          </Routes>
-        )}
-      </div>
-    </Fragment>
+    <div className=" container mx-auto">
+      <Navbar />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route element={<PrivateWrapper />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/add" element={<NewPoll />} />
+          <Route path="/questions/:id" element={<Poll />} />
+        </Route>
+        <Route path="*" element={<Error404 />} />
+      </Routes>
+    </div>
   );
 };
 
-const mapStateToProps = ({ authedUser }) => ({
-  loading: authedUser === null,
-});
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);
