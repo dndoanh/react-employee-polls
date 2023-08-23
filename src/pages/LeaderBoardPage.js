@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-const Leaderboard = ({ users }) => {
+const LeaderBoardPage = ({ users }) => {
   const sortedUsers = Object.keys(users).sort((a, b) => {
     const userA = users[a];
     const userB = users[b];
@@ -60,4 +60,4 @@ const mapStateToProps = ({ users }) => {
   };
 };
 
-export default connect(mapStateToProps)(Leaderboard);
+export default connect(mapStateToProps)(LeaderBoardPage);

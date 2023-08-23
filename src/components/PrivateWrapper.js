@@ -1,18 +1,18 @@
 import { connect } from "react-redux";
 import { Outlet } from "react-router-dom";
-import Login from "../../pages/Login";
+import LoginPage from "../pages/LoginPage";
 
 const PrivateWrapper = ({ loggedIn }) => {
   return <div className=" md:mx-10 mx-4">
     {loggedIn
       ? <Outlet />
-      : <Login />
+      : <LoginPage />
     }
   </div>;
 };
 
-const mapStateToProps = ({ authUser }) => ({
-  loggedIn: !!authUser,
+const mapStateToProps = ({ authedUser }) => ({
+  loggedIn: !!authedUser,
 });
 
 export default connect(mapStateToProps)(PrivateWrapper);

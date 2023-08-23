@@ -2,31 +2,31 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { receiveInitialData } from "../actions/initialData";
-import Navbar from "./global/Navbar";
-import PrivateWrapper from "./wrapper/PrivateWrapper";
-import Error404 from "../pages/Error404";
-import Home from "../pages/Home";
-import Leaderboard from "../pages/Leaderboard";
-import Login from "../pages/Login";
-import NewPoll from "../pages/NewPoll";
-import Poll from "../pages/Poll";
+import Nav from "./Nav";
+import PrivateWrapper from "./PrivateWrapper";
+import NotFoundPage from "../pages/NotFoundPage";
+import HomePage from "../pages/HomePage";
+import LeaderBoardPage from "../pages/LeaderBoardPage";
+import LoginPage from "../pages/LoginPage";
+import NewPollPage from "../pages/NewPollPage";
+import PollPage from "../pages/PollPage";
 
 const App = ({ dispatch }) => {
   useEffect(() => {
-    dispatch(receiveInitialData())
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    dispatch(receiveInitialData());
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className=" container mx-auto">
-      <Navbar />
+      <Nav />
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route element={<PrivateWrapper />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/add" element={<NewPoll />} />
-          <Route path="/questions/:id" element={<Poll />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/leaderboard" element={<LeaderBoardPage />} />
+          <Route path="/add" element={<NewPollPage />} />
+          <Route path="/questions/:id" element={<PollPage />} />
         </Route>
-        <Route path="*" element={<Error404 />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );

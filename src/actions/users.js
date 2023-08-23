@@ -6,24 +6,24 @@ const addUserQuestion = ({ author, id }) => {
   return {
     type: ADD_USER_QUESTION,
     author,
-    id
+    id,
   };
-}
+};
 
-const addUserAnswer = ( authUser, qid, answer ) => {
+const addUserAnswer = (userId, questionId, answer) => {
   return {
     type: ADD_USER_ANSWER,
-    authUser,
-    qid,
+    userId,
+    questionId,
     answer,
   };
-}
+};
 
 const receiveUsers = (users) => {
   return {
     type: RECEIVE_USERS,
     users,
   };
-}
+};
 
-export { addUserQuestion, addUserAnswer, receiveUsers }
+export { addUserQuestion, addUserAnswer, receiveUsers };

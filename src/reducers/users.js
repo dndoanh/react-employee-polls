@@ -1,4 +1,8 @@
-import { ADD_USER_ANSWER, ADD_USER_QUESTION, RECEIVE_USERS } from "../actions/users";
+import {
+  ADD_USER_ANSWER,
+  ADD_USER_QUESTION,
+  RECEIVE_USERS,
+} from "../actions/users";
 
 const users = (state = {}, action) => {
   switch (action.type) {
@@ -12,7 +16,7 @@ const users = (state = {}, action) => {
         ...state,
         [action.author]: {
           ...state[action.author],
-          questions: [...state[action.author].questions, action.id]
+          questions: [...state[action.author].questions, action.id],
         },
       };
     case ADD_USER_ANSWER:

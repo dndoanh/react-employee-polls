@@ -1,6 +1,6 @@
 import { LOGIN_AUTHED_USER, LOGOUT_AUTHED_USER } from "../actions/authedUser"
 
-const authUser = (state = null, action) => {
+const authedUser = (state = null, action) => {
   switch (action.type) {
     case LOGIN_AUTHED_USER:
       return action.authedUser;
@@ -11,4 +11,4 @@ const authUser = (state = null, action) => {
   }
 }
 
-export default authUser;
+export default authedUser;

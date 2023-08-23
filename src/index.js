@@ -1,12 +1,12 @@
 import ReactDOM from "react-dom";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 import { createStore } from "redux";
-import { Provider } from 'react-redux';
-import App from './components/App';
-import './index.css';
+import { Provider } from "react-redux";
+import App from "./components/App";
+import "./index.css";
 import reducer from "./reducers";
-import middleware from "./middleware";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import middleware from "./middlewares";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const store = createStore(reducer, middleware);
 

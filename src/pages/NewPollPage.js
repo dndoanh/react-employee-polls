@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { handleAddQuestion } from "../actions/polls";
+import { handleAddQuestion } from "../actions/questions";
 
-const NewPoll = ({ dispatch }) => {
+const NewPollPage = ({ dispatch }) => {
   const navigate = useNavigate()
   const [options, setOptions] = useState({
     firstOption: '',
@@ -57,4 +57,4 @@ const NewPoll = ({ dispatch }) => {
   )
 }
 
-export default connect()(NewPoll);
+export default connect()(NewPollPage);

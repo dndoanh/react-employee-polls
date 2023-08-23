@@ -1,4 +1,8 @@
-import { ADD_ANSWER_QUESTION, ADD_QUESTION, RECEIVE_QUESTIONS } from "../actions/polls";
+import {
+  ADD_ANSWER_QUESTION,
+  ADD_QUESTION,
+  RECEIVE_QUESTIONS,
+} from "../actions/questions";
 
 const questions = (state = {}, action) => {
   switch (action.type) {
@@ -19,9 +23,11 @@ const questions = (state = {}, action) => {
           ...state[action.qid],
           [action.answer]: {
             ...state[action.qid][action.answer],
-            votes: state[action.qid][action.answer].votes.concat(action.authUser),
+            votes: state[action.qid][action.answer].votes.concat(
+              action.authUser
+            ),
           },
-        }
+        },
       };
     default:
       return state;

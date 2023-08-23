@@ -2,7 +2,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import PollCard from "../components/PollCard";
 
-const Home = ({ answeredPolls, unansweredPolls, users }) => {
+const HomePage = ({ answeredQuestions, unansweredQuestions, users }) => {
   const [showPoll, setShowPoll] = useState(0)
   return (
     <div>
@@ -22,7 +22,7 @@ const Home = ({ answeredPolls, unansweredPolls, users }) => {
           ? <div>
             <h2 className=" text-blue-400 text-2xl underline my-8 text-center">Unanswered Polls</h2>
             <div className=" flex gap-6 flex-wrap justify-around">
-              {unansweredPolls.map(poll => {
+              {unansweredQuestions.map(poll => {
                 return (
                   <PollCard key={poll.id} poll={poll} author={users[poll.author]} />
                 );
@@ -32,7 +32,7 @@ const Home = ({ answeredPolls, unansweredPolls, users }) => {
           : <div>
             <h2 className=" text-blue-400 text-2xl underline my-8 text-center">Answered Polls</h2>
             <div className=" flex gap-6 flex-wrap justify-around">
-              {answeredPolls.map(poll => {
+              {answeredQuestions.map(poll => {
                 return (
                   <PollCard key={poll.id} poll={poll} author={users[poll.author]} />
                 );
@@ -46,17 +46,17 @@ const Home = ({ answeredPolls, unansweredPolls, users }) => {
 };
 
 const mapStateToProps = ({ authedUser, questions, users }) => {
-  const answeredPolls = Object.values(questions).filter(poll => {
+  const answeredQuestions = Object.values(questions).filter(poll => {
     return poll.optionOne.votes.includes(authedUser.id) || poll.optionTwo.votes.includes(authedUser.id);
   }).sort((a, b) => b.timestamp - a.timestamp);
-  const unansweredPolls = Object.values(questions).filter(poll => {
+  const unansweredQuestions = Object.values(questions).filter(poll => {
     return !poll.optionOne.votes.includes(authedUser.id) && !poll.optionTwo.votes.includes(authedUser.id);
   }).sort((a, b) => b.timestamp - a.timestamp);
   return ({
-    answeredPolls,
-    unansweredPolls,
+    answeredQuestions,
+    unansweredQuestions,
     users,
   })
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(HomePage);

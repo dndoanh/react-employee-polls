@@ -1,12 +1,12 @@
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
-import Login from "./Login"
+import LoginPage from "./LoginPage"
 
 const Error404 = ({ loggedIn }) => {
-  if (!loggedIn) return (<Login />)
+  if (!loggedIn) return (<LoginPage />)
   return (
     <div className=" h-screen grid place-content-center">
-      <h1 className=" text-6xl text-center font-extrabold">Error 404</h1>
+      <h1 className=" text-6xl text-center font-extrabold">Oops!</h1>
       <p className=" text-center font-semibold text-2xl">Page not found</p>
       <Link
         to="/login"
@@ -14,7 +14,7 @@ const Error404 = ({ loggedIn }) => {
         Go to Login
       </Link>
     </div>
-  )
+  );
 }
 
 const mapStateToProps = ({ authUser }) => ({

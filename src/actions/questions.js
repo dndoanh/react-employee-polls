@@ -1,4 +1,4 @@
-import { saveQuestion, saveQuestionAnswer } from "../data/api";
+import { saveQuestion, saveQuestionAnswer } from "../utils/api";
 import { addUserAnswer, addUserQuestion } from "./users";
 
 export const ADD_QUESTION = "ADD_QUESTION";
@@ -10,52 +10,52 @@ const addQuestion = (question) => {
     type: ADD_QUESTION,
     question,
   };
-}
+};
 
-const addAnswerQuestion = (authUser, qid, answer) => {
+const addAnswerQuestion = (userId, questionId, answer) => {
   return {
     type: ADD_ANSWER_QUESTION,
-    authUser,
-    qid,
+    userId,
+    questionId,
     answer,
   };
-}
+};
 
 const receiveQuestions = (questions) => {
   return {
     type: RECEIVE_QUESTIONS,
     questions,
   };
-}
+};
 
 const handleAddQuestion = (firstOption, secondOption) => {
   return async (dispatch, getState) => {
-    const { authUser } = getState();
+    const { authedUser } = getState();
     const question = {
       optionOneText: firstOption,
       optionTwoText: secondOption,
-      author: authUser,
+      author: authedUser,
     };
-    const questionResponse = await saveQuestion(question);
-    dispatch(addQuestion(questionResponse));
-    dispatch(addUserQuestion(questionResponse));
+    const savedQuestion = await saveQuestion(question);
+    dispatch(addQuestion(savedQuestion));
+    dispatch(addUserQuestion(savedQuestion));
   };
-}
+};
 
 const handleAddAnswer = (questionId, answer) => {
   return async (dispatch, getState) => {
-    const { authUser } = getState();
+    const { authedUser } = getState();
     const answerObject = {
-      authedUser: authUser.id,
-      qid: questionId,
+      authedUser: authedUser.id,
+      questionId: questionId,
       answer,
     };
     const isAdded = await saveQuestionAnswer(answerObject);
-    if(isAdded) {
-      dispatch(addAnswerQuestion(authUser.id, questionId, answer));
-      dispatch(addUserAnswer(authUser.id, questionId, answer));
+    if (isAdded) {
+      dispatch(addAnswerQuestion(authedUser.id, questionId, answer));
+      dispatch(addUserAnswer(authedUser.id, questionId, answer));
     }
   };
-}
+};
 
 export { handleAddQuestion, handleAddAnswer, receiveQuestions };
