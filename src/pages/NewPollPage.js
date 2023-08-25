@@ -2,59 +2,63 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { handleAddQuestion } from "../actions/questions";
+import { Button, Card, Container, Form } from "react-bootstrap";
 
 const NewPollPage = ({ dispatch }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [options, setOptions] = useState({
-    firstOption: '',
-    secondOption: '',
+    firstOption: "",
+    secondOption: "",
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (options.firstOption === '' || options.secondOption === '') {
-      alert("Please enter both options");
+    if (options.firstOption === "" || options.secondOption === "") {
+      alert("Please input for both options");
       return;
     }
     dispatch(handleAddQuestion(options.firstOption, options.secondOption));
-    navigate("/")
-  }
+    navigate("/");
+  };
   return (
-    <div>
-      <h1 className=" text-4xl text-center">New Poll</h1>
-      <form onSubmit={handleSubmit} className="">
-        <div className=" flex flex-col">
-          <label data-testid="firstOptionLabel" className=" text-xl py-4" htmlFor="firstOption">First Option</label>
-          <input
-            value={options.firstOption}
-            onChange={(e) => setOptions({ ...options, firstOption: e.target.value })}
-            type="text"
-            name="firstOption"
-            id="firstOption"
-            data-testid="firstOption"
-            className="input w-full border-2 border-slate-500"
-          />
-        </div>
-
-        <div className=" flex flex-col">
-          <label data-testid="secondOptionLabel" className=" text-xl py-4" htmlFor="secondOption">Second Option</label>
-          <input
-            value={options.secondOption}
-            onChange={(e) => setOptions({ ...options, secondOption: e.target.value })}
-            type="text"
-            name="secondOption"
-            id="secondOption"
-            data-testid="secondOption"
-            className="input w-full border-2 border-slate-500" />
-        </div>
-
-        <button type="submit"
-          data-testid="submit-poll"
-          className="btn mt-6">
-          Add Poll
-        </button>
-      </form>
-    </div>
-  )
-}
+    <>
+      <Container>
+      <h1 className="text-center">New Poll</h1>
+        <Card className="text-center">
+          <Card.Header>Would You Rather</Card.Header>
+          <Card.Title>Create Your Own Poll</Card.Title>
+          <Card.Body>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3">
+                <Form.Label>First Option</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Option One"
+                  value={options.firstOption}
+                  onChange={(e) =>
+                    setOptions({ ...options, firstOption: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Second Option</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Option Two"
+                  value={options.secondOption}
+                  onChange={(e) =>
+                    setOptions({ ...options, secondOption: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Container>
+    </>
+  );
+};
 
 export default connect()(NewPollPage);

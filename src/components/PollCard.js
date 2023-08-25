@@ -1,20 +1,16 @@
-import { Link } from "react-router-dom"
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const PollCard = ({ poll, author }) => {
-  const date = new Date(poll.timestamp).toLocaleDateString()
   return (
-    <div className=" flex gap-5 shadow-xl w-80">
-      <figure className=" w-28 h-28 border-slate-50 object-cover">
-        {author?.avatarURL ? <img src={author?.avatarURL} alt="avatar" /> : <img src="https://via.placeholder.com/150" alt="avatar" />
-          }
-      </figure>
-      <div className="pr-4 pt-2">
-        <h2 className="">{author?.name}</h2>
-        <p className=" py-2">date : {date}</p>
-        <Link to={`/questions/${poll.id}`} className=" p-2 bg-blue-500 text-white mt-2 rounded-md">Details</Link>
-      </div>
-    </div>
-  )
-}
+    <Card style={{ width: "18rem" }} className="text-center">
+      <Card.Body>
+        <Card.Title>{author?.name}</Card.Title>
+        <Card.Text>{new Date(poll.timestamp).toLocaleString()}</Card.Text>
+        <Card.Link as={Link} to={`/questions/${poll.id}`}>Show Details</Card.Link>
+      </Card.Body>
+    </Card>
+  );
+};
 
-export default PollCard
+export default PollCard;

@@ -22,11 +22,11 @@ const users = (state = {}, action) => {
     case ADD_USER_ANSWER:
       return {
         ...state,
-        [action.authUser]: {
-          ...state[action.authUser],
+        [action.userId]: {
+          ...state[action.userId],
           answers: {
-            ...state[action.authUser].answers,
-            [action.qid]: action.answer,
+            ...state[action.userId].answers,
+            [action.questionId]: action.answer,
           },
         },
       };

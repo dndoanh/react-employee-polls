@@ -8,7 +8,7 @@ const LoginPage = ({ dispatch, authedUser, users }) => {
   const [login, setLogin] = useState({});
   const [selectedUser, setSelectedUser] = useState("");
   const [error, setError] = useState("");
-  
+
   if (authedUser) {
     const urlParams = new URLSearchParams(window.location.search);
     const redirectUrl = urlParams.get("redirectTo");

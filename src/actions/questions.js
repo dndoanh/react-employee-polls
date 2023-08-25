@@ -12,11 +12,11 @@ const addQuestion = (question) => {
   };
 };
 
-const addAnswerQuestion = (userId, questionId, answer) => {
+const addAnswerQuestion = (userId, qid, answer) => {
   return {
     type: ADD_ANSWER_QUESTION,
     userId,
-    questionId,
+    qid,
     answer,
   };
 };
@@ -42,18 +42,18 @@ const handleAddQuestion = (firstOption, secondOption) => {
   };
 };
 
-const handleAddAnswer = (questionId, answer) => {
+const handleAddAnswer = (qid, answer) => {
   return async (dispatch, getState) => {
     const { authedUser } = getState();
     const answerObject = {
       authedUser: authedUser.id,
-      questionId: questionId,
+      qid: qid,
       answer,
     };
     const isAdded = await saveQuestionAnswer(answerObject);
     if (isAdded) {
-      dispatch(addAnswerQuestion(authedUser.id, questionId, answer));
-      dispatch(addUserAnswer(authedUser.id, questionId, answer));
+      dispatch(addAnswerQuestion(authedUser.id, qid, answer));
+      dispatch(addUserAnswer(authedUser.id, qid, answer));
     }
   };
 };

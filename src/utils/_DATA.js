@@ -4,7 +4,7 @@ let users = {
     password: "password123",
     name: "Sarah Edo",
     avatarURL:
-      "https://static.frontendmasters.com/assets/teachers/drasner/thumb@2x.jpg",
+      "/images/users/sarah.svg",
     answers: {
       "8xf0y6ziyjabvozdd253nd": "optionOne",
       "6ni6ok3ym7mf1p33lnez": "optionOne",
@@ -18,7 +18,7 @@ let users = {
     password: "abc321",
     name: "Tyler McGinnis",
     avatarURL:
-      "https://pbs.twimg.com/profile_images/1428205319616798721/xmr7q976_400x400.jpg",
+      "/images/users/tyler.svg",
     answers: {
       vthrdm985a262al8qx3do: "optionOne",
       xj352vofupe1dqz9emx13r: "optionTwo",
@@ -76,7 +76,7 @@ let questions = {
       text: "hire more backend developers",
     },
   },
-  am8ehyc8byjqgar0jgpub9: {
+  "am8ehyc8byjqgar0jgpub9": {
     id: "am8ehyc8byjqgar0jgpub9",
     author: "sarahedo",
     timestamp: 1488579767190,
@@ -89,7 +89,7 @@ let questions = {
       text: "conduct release retrospectives quarterly",
     },
   },
-  loxhs1bqm25b708cmbf3g: {
+  "loxhs1bqm25b708cmbf3g": {
     id: "loxhs1bqm25b708cmbf3g",
     author: "tylermcginnis",
     timestamp: 1482579767190,
@@ -102,7 +102,7 @@ let questions = {
       text: "have code reviews conducted by managers",
     },
   },
-  vthrdm985a262al8qx3do: {
+  "vthrdm985a262al8qx3do": {
     id: "vthrdm985a262al8qx3do",
     author: "tylermcginnis",
     timestamp: 1489579767190,
@@ -115,7 +115,7 @@ let questions = {
       text: "take a course on unit testing with Jest",
     },
   },
-  xj352vofupe1dqz9emx13r: {
+  "xj352vofupe1dqz9emx13r": {
     id: "xj352vofupe1dqz9emx13r",
     author: "mtsamis",
     timestamp: 1493579767190,

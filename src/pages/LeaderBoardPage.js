@@ -1,63 +1,44 @@
+import { Container, Figure, Table } from "react-bootstrap";
 import { connect } from "react-redux";
 
 const LeaderBoardPage = ({ users }) => {
-  const sortedUsers = Object.keys(users).sort((a, b) => {
-    const userA = users[a];
-    const userB = users[b];
-    const userAScore = Object.keys(userA.answers).length + Object.keys(userA.questions).length;
-    const userBScore = Object.keys(userB.answers).length + Object.keys(userB.questions).length;
-    return userBScore - userAScore;
-  });
   return (
-    <div>
-      <h1 className=" text-4xl text-center">Leaderboard</h1>
-      <div className="overflow-x-auto">
-        <table className="table w-full mt-12">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Answer</th>
-              <th>Poll</th>
+    <Container>
+      <h1 className="text-center">Leaderboard</h1>
+    <Table responsive>
+      <thead>
+        <tr>
+          <th>Users</th>
+          <th>Answered</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map((usr, idx) => {
+          const { name, avatarURL, answers, questions, id } = users[idx];
+          return (
+            <tr key={idx}>
+              <td>
+                <Figure>
+                  {avatarURL && (
+                    <Figure.Image width={80} height={80} src={avatarURL} />
+                  )}
+                  <Figure.Caption>{`${name} (${id})`}</Figure.Caption>
+                </Figure>
+              </td>
+              <td>{Object.keys(answers).length}</td>
+              <td>{Object.keys(questions).length}</td>
             </tr>
-          </thead>
-          <tbody>
-            {sortedUsers.map((user, index) => {
-              const { name, avatarURL, answers, questions, id } = users[user];
-              return (
-                <tr key={id}>
-                  <th>{index + 1}</th>
-                  <td className=" flex items-center gap-8">
-                    <span>
-                      {
-                        avatarURL
-                          ? <img src={avatarURL} alt={name} className="w-10 h-10 rounded-full" />
-                          : <img
-                            src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-                            alt={name}
-                            className="w-10 h-10 rounded-full"
-                          />
-                      }
-                    </span>
-                    <span className=" font-medium">
-                      {`${name} (${id})`}
-                    </span>
-                  </td>
-                  <td>{Object.keys(answers).length}</td>
-                  <td>{Object.keys(questions).length}</td>
-                </tr>)
-            })}
-          </tbody>
-        </table>
-      </div>
-    </div>
+          );
+        })}
+      </tbody>
+    </Table>
+    </Container>
   );
-}
-
-const mapStateToProps = ({ users }) => {
-  return {
-    users,
-  };
 };
+
+const mapStateToProps = ({ users }) => ({
+  users: Object.keys(users).map((key) => users[key]),
+});
 
 export default connect(mapStateToProps)(LeaderBoardPage);
