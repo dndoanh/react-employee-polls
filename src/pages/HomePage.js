@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import PollCard from "../components/PollCard";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 
 const HomePage = ({ answeredQuestions, unansweredQuestions, users }) => {
   const [showPoll, setShowPoll] = useState(0);
   return (
     <Container>
       <h1 className="text-center">Dashboard</h1>
+
+      <Tabs defaultActiveKey="unanswered" className="d-flex justify-content-center">
+      <Tab eventKey="unanswered" title="Unanswered">
       <Card>
         <Card.Header>New Questions</Card.Header>
         <Card.Body>
@@ -26,7 +29,8 @@ const HomePage = ({ answeredQuestions, unansweredQuestions, users }) => {
           </Row>
         </Card.Body>
       </Card>
-      <br />
+      </Tab>
+      <Tab eventKey="answered" title="Answered">
       <Card>
         <Card.Header>Done</Card.Header>
         <Card.Body>
@@ -45,6 +49,10 @@ const HomePage = ({ answeredQuestions, unansweredQuestions, users }) => {
           </Row>
         </Card.Body>
       </Card>
+      </Tab>
+    </Tabs>
+
+      
     </Container>
   );
 };

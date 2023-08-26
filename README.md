@@ -9,6 +9,10 @@ Most of the commits in this repository correspond to videos in the program.
 - Clone the Project.
 - Install the dependencies: `npm install`
 
+## How to run
+
+- Launch the application by `npm start`
+
 ## Contributing
 
 Because this is a code-along project and the commits correspond to specific videos in the program, we will not be accepting pull requests.

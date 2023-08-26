@@ -58,6 +58,7 @@ const LoginPage = ({ dispatch, authedUser, users }) => {
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
+            data-testid="username-input"
             placeholder="Enter username"
             value={login.username}
             onChange={(e) => setLogin({ ...login, username: e.target.value })}
@@ -68,13 +69,14 @@ const LoginPage = ({ dispatch, authedUser, users }) => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
+            data-testid="password-input"
             placeholder="Enter password"
             value={login.password}
             onChange={(e) => setLogin({ ...login, password: e.target.value })}
           />
         </Form.Group>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Button variant="primary" type="submit">
+        {error && <Alert variant="danger" data-testid="error-message">{error}</Alert>}
+        <Button variant="primary" type="submit" data-testid="submit-login">
           Login
         </Button>
       </Form>
