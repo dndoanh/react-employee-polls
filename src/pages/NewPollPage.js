@@ -32,6 +32,7 @@ const NewPollPage = ({ dispatch }) => {
                 <Form.Label>First Option</Form.Label>
                 <Form.Control
                   type="text"
+                  data-testid="option-one-input"
                   placeholder="Option One"
                   value={options.firstOption}
                   onChange={(e) =>
@@ -43,6 +44,7 @@ const NewPollPage = ({ dispatch }) => {
                 <Form.Label>Second Option</Form.Label>
                 <Form.Control
                   type="text"
+                  data-testid="option-two-input"
                   placeholder="Option Two"
                   value={options.secondOption}
                   onChange={(e) =>
@@ -50,7 +52,7 @@ const NewPollPage = ({ dispatch }) => {
                   }
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" data-testid="btn-submit-poll">
                 Submit
               </Button>
             </Form>

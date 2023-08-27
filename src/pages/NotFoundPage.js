@@ -1,24 +1,23 @@
 import { connect } from "react-redux"
 import { Link } from "react-router-dom"
 import LoginPage from "./LoginPage"
+import { Card } from "react-bootstrap"
 
-const Error404 = ({ loggedIn }) => {
+const NotFoundPage = ({ loggedIn }) => {
   if (!loggedIn) return (<LoginPage />)
   return (
-    <div className=" h-screen grid place-content-center">
-      <h1 className=" text-6xl text-center font-extrabold">Oops!</h1>
-      <p className=" text-center font-semibold text-2xl">Page not found</p>
-      <Link
-        to="/login"
-        className=" text-center block text-2xl font-semibold mt-20 text-blue-500 underline">
-        Go to Login
-      </Link>
-    </div>
+    <Card>
+      <Card.Body>
+        <Card.Title>404 ERROR</Card.Title>
+        <Card.Text>Oops! You didn't break the Internet. But we didn't find what you're looking for.</Card.Text>
+        <Card.Link as={Link} to={"/"}>Go back homepage</Card.Link>
+      </Card.Body>
+    </Card>
   );
 }
 
-const mapStateToProps = ({ authUser }) => ({
-  loggedIn: !!authUser,
+const mapStateToProps = ({ authedUser }) => ({
+  loggedIn: !!authedUser,
 })
 
-export default connect(mapStateToProps)(Error404);
+export default connect(mapStateToProps)(NotFoundPage);

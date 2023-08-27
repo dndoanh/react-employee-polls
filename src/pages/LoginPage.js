@@ -1,35 +1,37 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { Navigate } from "react-router-dom";
 import { handleLoginAuthedUser } from "../actions/authedUser";
 import { Alert, Button, Container, Form } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const LoginPage = ({ dispatch, authedUser, users }) => {
+const LoginPage = (props) => {
+  const { dispatch, authedUser, users } = props;
   const [login, setLogin] = useState({});
   const [selectedUser, setSelectedUser] = useState("");
   const [error, setError] = useState("");
-
-  if (authedUser) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const redirectUrl = urlParams.get("redirectTo");
-    console.log(redirectUrl);
-    return <Navigate to={redirectUrl ? redirectUrl : "/"} />;
-  }
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const res = dispatch(handleLoginAuthedUser(login));
-    if (!res) {
-      setError("Invalid username or password");
-    }
+    handleRedirect(res);
   };
-
   const handleSelectLogin = () => {
     if (selectedUser !== "") {
       const user = users.find((u) => u.id === selectedUser);
-      dispatch(
+      const res = dispatch(
         handleLoginAuthedUser({ username: user.id, password: user.password })
       );
+      handleRedirect(res);
+    }
+  };
+  const handleRedirect = (res) => {
+    if (!res) {
+      setError("Invalid username or password");
+    } else {
+      const from = location.state?.from || "/";
+      navigate(from);
     }
   };
 
@@ -75,7 +77,11 @@ const LoginPage = ({ dispatch, authedUser, users }) => {
             onChange={(e) => setLogin({ ...login, password: e.target.value })}
           />
         </Form.Group>
-        {error && <Alert variant="danger" data-testid="error-message">{error}</Alert>}
+        {error && (
+          <Alert variant="danger" data-testid="error-message">
+            {error}
+          </Alert>
+        )}
         <Button variant="primary" type="submit" data-testid="submit-login">
           Login
         </Button>

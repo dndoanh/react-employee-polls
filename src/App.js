@@ -11,8 +11,10 @@ import NewPollPage from "./pages/NewPollPage";
 import PollDetailPage from "./pages/PollDetailPage";
 import { Container } from "react-bootstrap";
 import { LoadingBar } from "react-redux-loading-bar";
+import { useLocation } from "react-router-dom";
 
 const App = ({ dispatch, authedUser }) => {
+  const location = useLocation();
   useEffect(() => {
     dispatch(receiveInitialData());
   }, []);
@@ -30,23 +32,48 @@ const App = ({ dispatch, authedUser }) => {
           <Route
             path="/"
             exact
-            element={!loggedIn ? <Navigate to="/login" /> : <HomePage />}
+            element={
+              !loggedIn ? (
+                <Navigate to="/login" state={{ from: "/" }} />
+              ) : (
+                <HomePage />
+              )
+            }
           />
           <Route
             path="/add"
-            element={!loggedIn ? <Navigate to="/login" /> : <NewPollPage />}
+            element={
+              !loggedIn ? (
+                <Navigate to="/login" state={{ from: "/add" }} />
+              ) : (
+                <NewPollPage />
+              )
+            }
           />
           <Route
             path="/leaderboard"
-            element={!loggedIn ? <Navigate to="/login" /> : <LeaderboardPage />}
+            element={
+              !loggedIn ? (
+                <Navigate to="/login" state={{ from: "/leaderboard" }} />
+              ) : (
+                <LeaderboardPage />
+              )
+            }
           />
           <Route
             path="/questions/:id"
-            element={!loggedIn ? <Navigate to="/login" /> : <PollDetailPage />}
+            element={!loggedIn ? <Navigate to="/login" state={{ from: location.pathname }}/> : <PollDetailPage />}
           />
+          <Route path="/notfound" element={<NotFoundPage />} />
           <Route
             path="*"
-            element={!loggedIn ? <Navigate to="/login" /> : <NotFoundPage />}
+            element={
+              !loggedIn ? (
+                <Navigate to="/login" state={{ from: "/notfound" }} />
+              ) : (
+                <NotFoundPage />
+              )
+            }
           />
         </Routes>
       </Container>

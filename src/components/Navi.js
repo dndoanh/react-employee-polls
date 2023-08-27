@@ -2,8 +2,13 @@ import { connect } from "react-redux";
 import { handleLogoutAuthedUser } from "../actions/authedUser";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Navi = ({ dispatch, authedUser }) => {
+  const location = useLocation();
+  if (location.pathname === "/notfound") {
+    return null;
+  }
   const handleLogout = () => {
     dispatch(handleLogoutAuthedUser());
   };
@@ -12,6 +17,7 @@ const Navi = ({ dispatch, authedUser }) => {
     { path: "/leaderboard", title: "Leaderboard", testid: "leaderboard-link" },
     { path: "/add", title: "New Poll", testid: "new-poll-link" },
   ];
+
   return (
     <>
       {authedUser && (

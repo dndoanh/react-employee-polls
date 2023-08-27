@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { handleAddAnswer } from "../actions/questions";
-import NotFoundPage from "./NotFoundPage";
 import {
   Alert,
   Button,
@@ -23,8 +22,10 @@ const Poll = ({ dispatch, authedUser, users, questions }) => {
     optionTwo: questions[id]?.optionTwo?.votes?.length,
   };
   const [voteCount, setVoteCount] = useState(initialVoteCount);
-  
-  if (!questions[id]) return <NotFoundPage />;
+
+  if (!questions[id]) {
+    return <Navigate to="/notfound" />;
+  }
   console.log(questions[id].optionOne.votes.includes(authedUser?.id));
   const handleSelectOption = (option) => {
     if (answer) return;
